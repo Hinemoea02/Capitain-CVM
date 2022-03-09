@@ -31,7 +31,7 @@ public abstract class BaseInteraction : MonoBehaviour
     /// <summary>
     /// Permet de lancer l'action à utiliser
     /// </summary>
-    public abstract void DoAction();
+    public abstract void DoAction(); //Méthode Abstraite
 
     /// <summary>
     /// Définit l'action à réaliser lors que l'on quitte
