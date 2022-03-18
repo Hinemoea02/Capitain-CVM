@@ -28,7 +28,43 @@ public class MainMenuButtonAction : MonoBehaviour
     /// <param name="nom">Nom du niveau à charger</param>
     public void ChargerNiveau(string nom)
     {
-        SceneManager.LoadScene(nom);
+        Debug.Log(GameManager.Instance.PlayerData.AvoirListLevel());
+
+        if (nom.Equals("Level2"))
+        {
+            if(GameManager.Instance.PlayerData.AvoirListLevel().Contains("Level1") == true)
+            {
+                SceneManager.LoadScene(nom);
+            }
+            else
+            {
+                Debug.Log("Niveau 2 pas debloque");
+            }
+        }
+        else if (nom.Equals("Level3"))
+        {
+            if (GameManager.Instance.PlayerData.AvoirListLevel().Contains("Level2") == true)
+            {
+                SceneManager.LoadScene(nom);
+            }
+            else
+            {
+                Debug.Log("Niveau 3 pas debloque");
+            }
+        }
+        else
+        {
+            SceneManager.LoadScene(nom);
+        }
+
+    }
+
+    public void AfficherCollectables(GameObject gameObject)
+    {
+        if (GameManager.Instance.PlayerData.AvoirListBonus().Contains(gameObject.name) == true)
+            gameObject.SetActive(true);
+        else
+            gameObject.SetActive(false);
     }
 
     /// <summary>

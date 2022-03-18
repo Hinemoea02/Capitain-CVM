@@ -8,6 +8,8 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
+    private List<string> _completeLevelList;
+    private List<string> _bonusList;
     /// <summary>
     /// Niveau sélectionné par l'utilisateur pour le vol. général
     /// </summary>
@@ -81,12 +83,14 @@ public class PlayerData
         this.UIPerteVie = null;
         this.Gameover = null;
         this._chestOpenList = new List<string>();
+        this._completeLevelList = new List<string>();
+        this._bonusList = new List<string>();
     }
 
     public PlayerData(int vie = 1, int energie = 2, int score = 0,
         float volumeGeneral = 0, float volumeMusique = 0, float volumeEffet = 0,
         System.Action uiPerteEnergie = null, System.Action uiPerteVie = null,
-        System.Action gameOver = null, List<string> ChestList = null)
+        System.Action gameOver = null, List<string> ChestList = null, List<string> LevelList = null, List<string> BonusList = null)
     {
         this._vie = vie;
         this._energie = energie;
@@ -100,6 +104,12 @@ public class PlayerData
         this._chestOpenList = new List<string>();
         if (ChestList != null)
             this._chestOpenList = ChestList;
+        this._completeLevelList = new List<string>();
+        if (LevelList != null)
+            this._completeLevelList = LevelList;
+        this._bonusList = new List<string>();
+        if (BonusList != null)
+            this._bonusList = BonusList;
     }
 
     /// <summary>
@@ -185,5 +195,26 @@ public class PlayerData
     public bool AvoirOuvertureCoffre(string nom)
     {
         return this._chestOpenList.Contains(nom);
+    }
+
+    //
+    public void AjouterCompleteLevel(string nom)
+    {
+        this._completeLevelList.Add(nom);
+    }
+
+    public List<string> AvoirListLevel()
+    {
+        return this._completeLevelList;
+    }
+
+    public void AjouterBonus(string nom)
+    {
+        this._bonusList.Add(nom);
+    }
+
+    public List<string> AvoirListBonus()
+    {
+        return this._bonusList;
     }
 }
