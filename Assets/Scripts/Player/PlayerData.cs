@@ -70,6 +70,7 @@ public class PlayerData
     public int Vie { get { return this._vie; } }
     public int Score { get { return this._score; } }
     public string[] ListeCoffreOuvert { get { return this._chestOpenList.ToArray(); } }
+    public string[] ListeBonus { get { return this._bonusList.ToArray(); } }
 
     public PlayerData()
     {

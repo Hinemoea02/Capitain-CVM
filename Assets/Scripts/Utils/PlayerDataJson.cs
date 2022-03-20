@@ -36,6 +36,23 @@ public static class PlayerDataJson
             json += tab + "]" + newline;
         }
         else json += "]" + newline;
+
+        json += tab + "\"bonusList\":[";
+        if (data.ListeBonus.Length > 0)
+        {
+            json += newline;
+            for (int i = 0; i < data.ListeBonus.Length; i++)
+            {
+                string bonusData = data.ListeCoffreOuvert[i];
+                json += tab + tab + "\"" + bonusData + "\"";
+                if (i + 1 < data.ListeBonus.Length)
+                    json += ",";
+                json += newline;
+            }
+            json += tab + "]" + newline;
+        }
+        else json += "]" + newline;
+
         json += "}";
         return json;
     }
@@ -61,6 +78,7 @@ public static class PlayerDataJson
         int vie = 0, energie = 0, score = 0;
         float vlmGeneral = 0, vlmMusique = 0, vlmEffet = 0;
         List<string> chests = new List<string>();
+        List<string> bonus = new List<string>();
         string[] lignes = json.Split('\n');
         
         for(int i = 1; i < lignes.Length || lignes[i] != "}"; i++)
@@ -103,10 +121,22 @@ public static class PlayerDataJson
                             .Replace("\"", string.Empty));
                     }
                     break;
+                case "\"bonusList\"":
+                    if (parametre[1] == "[]")
+                        break;
+                    else if (parametre[1] != "[")
+                        throw new JSONFormatExpcetion();
+                    while (lignes[++i] != "]")
+                    {
+                        bonus.Add(lignes[i]
+                            .Replace(",", string.Empty)
+                            .Replace("\"", string.Empty));
+                    }
+                    break;
             }
         }
 
-        return new PlayerData(vie, energie, score, vlmGeneral, vlmMusique, vlmEffet, ChestList: chests);
+        return new PlayerData(vie, energie, score, vlmGeneral, vlmMusique, vlmEffet, ChestList: chests, BonusList: bonus);
     }
 }
 
